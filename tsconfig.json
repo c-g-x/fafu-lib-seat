@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist/js",
+    "module": "CommonJS",
+    "target": "ES2015",
+    "sourceMap": true,
+    "noImplicitAny": false,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    // 生成声明文件
+    "declaration": true,
+    // 生成声明 map 文件
+    "declarationMap": true,
+    "watch": true,
+    "moduleResolution": "Node",
+    "baseUrl": "./",
+    "esModuleInterop": true
+  },
+  "include": [
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "*.test.ts"
+  ]
+}
