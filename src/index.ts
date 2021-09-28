@@ -1,4 +1,4 @@
-import {ExpectedDevice, showDevices, User} from "./interface/user";
+import {ExpectedDevice, Server, showDevices, User} from "./interface/user";
 import Koa from 'koa';
 import Router from 'koa-router'
 import {getYFRoom} from "./request/YF-room";
@@ -6,20 +6,15 @@ import {Room} from "./interface/room";
 import _ from "lodash";
 import {Device, DeviceState} from "./interface/device";
 import {DeviceHelper} from "./request/device";
-import {getCookie, login} from "./request/user";
+import {login} from "./request/user";
 import {bookYFDevice} from "./request/YF-device";
 import {CommonResult} from "./config/lib-axios";
+import * as config from '../lib-config.json'
 
-let users: User[] = [
-    {
-        id: '3186016025',
-        password: 'cgs7245332',
-    },
-    // {
-    //     id: '3186016028',
-    //     password: 'hmj520106',
-    // }
-];
+const users: User[] = config.users;
+const server: Server = config.server;
+const expectedDevices: ExpectedDevice[] = config.expectedDevices;
+
 const user: User = users[0];
 
 const app: Koa = new Koa();
@@ -31,139 +26,6 @@ let mapDeviceState: Map<string, DeviceState> = new Map([
     ['using', DeviceState.USING],
 ]);
 
-const expectedDevices: ExpectedDevice[] = [
-    {
-        "title": "YF-635",
-        "devId": "101648002",
-        "labId": "100519472"
-    },
-    {
-        "title": "YF-435",
-        "devId": "100523145",
-        "labId": "100519472"
-    },
-    {
-        "title": "YF-433",
-        "devId": "100523143",
-        "labId": "100519472"
-    },
-    {
-        "title": "YF-417",
-        "devId": "100523127",
-        "labId": "100519472"
-    },
-    {
-        "title": "YF-419",
-        "devId": "100523129",
-        "labId": "100519472"
-    },
-    {
-        "title": "YF-517",
-        "devId": "100523167",
-        "labId": "100519472"
-    },
-    {
-        "title": "YF-519",
-        "devId": "100523169",
-        "labId": "100519472"
-    },
-    {
-        "title": "YF-617",
-        "devId": "100523203",
-        "labId": "100519472"
-    },
-    {
-        "title": "YF-619",
-        "devId": "100523205",
-        "labId": "100519472"
-    },
-    {
-        "title": "YF-335",
-        "devId": "100523101",
-        "labId": "100519472"
-    },
-    {
-        "title": "YF-333",
-        "devId": "100523099",
-        "labId": "100519472"
-    },
-    {
-        "title": "YF-303",
-        "devId": "100523069",
-        "labId": "100519472"
-    },
-    {
-        "title": "YF-301",
-        "devId": "100523067",
-        "labId": "100519472"
-    },
-    {
-        "title": "YF-139",
-        "devId": "100523017",
-        "labId": "100519472"
-    },
-    {
-        "title": "YF-137",
-        "devId": "100523015",
-        "labId": "100519472"
-    },
-    {
-        "title": "YF-135",
-        "devId": "100523013",
-        "labId": "100519472"
-    },
-    {
-        "title": "YF-127",
-        "devId": "100523005",
-        "labId": "100519472"
-    },
-    {
-        "title": "YF-125",
-        "devId": "100523003",
-        "labId": "100519472"
-    },
-    {
-        "title": "YF-123",
-        "devId": "100523001",
-        "labId": "100519472"
-    },
-    {
-        "title": "YF-133",
-        "devId": "100523011",
-        "labId": "100519472"
-    },
-    {
-        "title": "YF-107",
-        "devId": "100522985",
-        "labId": "100519472"
-    },
-    {
-        "title": "YF-105",
-        "devId": "100522983",
-        "labId": "100519472"
-    },
-    {
-        "title": "YF-103",
-        "devId": "100522981",
-        "labId": "100519472"
-    },
-    {
-        "title": "YF-101",
-        "devId": "100522979",
-        "labId": "100519472"
-    },
-    {
-        "title": "YF-401",
-        "devId": "100523111",
-        "labId": "100519472"
-    },
-    {
-        "title": "YF-403",
-        "devId": "100523113",
-        "labId": "100519472"
-    }
-]
-// 获取逸夫所有设备
 router.get(['/yf/devices/:status', '/yf/devices'], async (ctx) => {
     const room: Room = await getYFRoom();
 
@@ -236,5 +98,5 @@ router.get('/', async (ctx) => {
 })
 
 app.use(router.routes());
-app.listen(3000);
-console.log('启动成功!!')
+app.listen(server.port, server.host);
+console.log('启动成功!!');

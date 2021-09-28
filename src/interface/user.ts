@@ -13,6 +13,11 @@ export interface ExpectedDevice {
     labId?: string,
 }
 
+export interface Server {
+    host: string,
+    port: number,
+}
+
 export function showDevices(devices: Device[]): any[] {
     return _.map(devices, (device: Device) => {
         return {

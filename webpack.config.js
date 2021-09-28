@@ -1,15 +1,16 @@
 const path = require('path');
 
 module.exports = {
-  entry: './src/index.ts',
+  entry: path.resolve(__dirname, 'src', 'index.ts'),
   mode: 'development',
   output: {
-    path: path.resolve(__dirname, 'dist/js'),
+    path: path.resolve(__dirname, 'dist'),
     filename: 'fafu-lib-webpack.bundle.js',
   },
   module: {
     rules: [
       {test: /\.tsx?$/, use: 'ts-loader', exclude: /node_modules/},
+      {test: /\.js$/, use: 'source-map-loader', enforce: 'pre'},
     ],
   },
   resolve: {
@@ -17,6 +18,7 @@ module.exports = {
   },
   target: ['node'],
   devServer: {
+    hot: true,
     static: {
       directory: path.join(__dirname, '.'),
     },
