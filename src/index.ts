@@ -9,7 +9,7 @@ import {DeviceHelper} from "./request/device";
 import {login} from "./request/user";
 import {bookYFDevice} from "./request/YF-device";
 import {CommonResult} from "./config/lib-axios";
-import * as config from '../lib-config.json'
+import * as config from '../app-config.json';
 
 const users: User[] = config.users;
 const server: Server = config.server;
@@ -99,4 +99,4 @@ router.get('/', async (ctx) => {
 
 app.use(router.routes());
 app.listen(server.port, server.host);
-console.log('启动成功!!');
+console.log('启动成功!!!');

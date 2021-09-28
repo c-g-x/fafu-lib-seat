@@ -1,7 +1,7 @@
 {
   "server": {
     "host": null,
-    "port": 8080,
+    "port": 8888,
     "proxy": {
       "open": false,
       "host": "127.0.0.1",

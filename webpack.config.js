@@ -5,7 +5,7 @@ module.exports = {
   mode: 'development',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'fafu-lib-webpack.bundle.js',
+    filename: 'bundle.js',
   },
   module: {
     rules: [
@@ -18,12 +18,7 @@ module.exports = {
   },
   target: ['node'],
   devServer: {
+    port: 8888,
     hot: true,
-    static: {
-      directory: path.join(__dirname, '.'),
-    },
-    compress: true,
-    open: true,
-    port: 9000,
   },
 };

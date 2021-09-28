@@ -1,5 +1,5 @@
 import axios, {AxiosProxyConfig} from "axios";
-import {server} from '../../lib-config.json';
+import {server} from '../../app-config.json';
 
 const PROXY: AxiosProxyConfig = {
     host: server.proxy.host,
